@@ -44,7 +44,8 @@ table {
     justify-content: center;
 }
 thead {
-    margin-bottom: ;
+    color: white;
+  background-color: black;
 }
 tbody {
     justify-content: center;
