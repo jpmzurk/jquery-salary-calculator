@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!-- // [if gt IE 8]>> <html class="no-js"> <![endif] -->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Salary Calculator</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="bootstrap.css">
+        <link rel="stylesheet" href="style.css">
+        <script src="jquery-3.5.1.min.js"></script>
+        <script src="client.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Salary Calculator</h1>
+        </header>
+        <main>
+            <section id= "form">
+                <input id="firstNameInput" type="text" placeholder="First Name">
+                <input id="lastNameInput" type="text" placeholder="Last Name">
+                <input id="employeeIdInput" type="number" placeholder="ID">
+                <input id="jobTitleInput" type="text" placeholder="Title">
+                <input id="annualSalaryInput" type="number" placeholder="Annual Salary">
+                <button id="submitButton"> Submit </button> 
+
+            </section>
+            <section id="tableSection" >
+                <table>
+                    <thead> <h3>Employees</h3>
+                        <tr class="tableHeader">
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Annual Salary</th>
+                            <th id="buttonSpace">             </th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody id="appendTarget" >
+                        <tr id="output"> </tr>
+                    </tbody>
+                </table>
+            </section>  
+            <section id="appendCalculator">
+                    <h3 id="calculator"></h3>
+            </section> 
+        </main>
+        
+    </body>
+</html>

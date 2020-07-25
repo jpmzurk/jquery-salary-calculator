@@ -1,0 +1,72 @@
+header {
+    text-align: center;
+    margin-top: 0px;
+    padding: 5px;
+
+    background-color: slategrey;
+    width: 100%;
+    height: 150px;
+}
+
+#tableSection{
+    text-align: center;
+    float: center;
+
+}
+h1  {
+    color: white;
+    margin-top: 30px;
+}
+
+#form {
+    text-align: center;
+    margin: 50px;
+}
+
+
+.full_width {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+    border-spacing:0;
+}
+
+body {
+    padding:0;
+    margin:0;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 100px;
+    justify-content: center;
+}
+thead {
+    margin-bottom: ;
+}
+tbody {
+    justify-content: center;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+#deleteFormat  {
+    justify-content: center;
+    
+}
+
+
+#calculator {
+    text-align: right;
+    padding: 20px;
+
+}
