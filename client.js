@@ -6,16 +6,16 @@ function readyNow() {
 }
 
 function addClickHandlers() {
-    $('#submitButton').on('click', submitInput)
-    $('#appendTarget').on('click', '.employeeInfo', deleteEmployee) 
+    $('#submitButton').on('click', submitEmployee)
+    $('#appendTarget').on('click', '.employeeInfo', deleteEmployee)
     // $('#appendTarget').on('click', '.employeeInfo', subtractEmployeeSalary) //DYNAMIC CLICK LISTENER!!!!!!
 }
 
 let employeeList = [];
 
-function submitInput() {
+function submitEmployee() {
 
-    ///CONNECT THE INPUT FIELDS TO AN OBJECT 
+    ///CONNECT THE INPUT FIELDS TO A NEW EMPLOYEE OBJECT 
     let employee = {
         firstName: $('#firstNameInput').val(),
         lastName: $('#lastNameInput').val(),
@@ -28,10 +28,10 @@ function submitInput() {
         alert('please enter all fields');
     }
     else {
-        employeeList.push(employee); ///PUSHES INVENTORY ITEM INTO INVENTORY ARRAY
+        employeeList.push(employee); ///PUSHES EMPLOYEE INTO EMPLOYEE LIST ARRAY
         // appendItemToDom();
-        appendItemToTable();
-        salarySetter(employeeList);
+        appendEmployeeToTable(); // add employee object to table fields
+        totalMonthlyCostSetter(employeeList); //
         console.log(employee);
         console.log(employeeList);
 
@@ -46,8 +46,7 @@ function submitInput() {
 
 }
 
-
-function appendItemToTable() {
+function appendEmployeeToTable() {
 
     $('#appendTarget').empty();
 
@@ -56,7 +55,7 @@ function appendItemToTable() {
         let secondNamedAppend = `<td class="employeeInfo"> ${worker.lastName}</td>`;
         let idAppend = `<td class="employeeInfo" > ${worker.id}</td> `;
         let jobTitleAppend = `<td class="employeeInfo" > ${worker.jobTitle}</td> `;
-        let annualSalaryAppend = `<td class="employeeInfo"><span class="salary">${worker.annualSalary} </span> </td> `;                                            
+        let annualSalaryAppend = `<td class="employeeInfo"><span class="salary">${worker.annualSalary} </span> </td> `;
         let deleteButton = `<td class="employeeInfo"> <button class"deleteButton"> Delete </button> </td>`;
 
 
@@ -64,83 +63,54 @@ function appendItemToTable() {
     }
 }
 
+function salaryCalculator() {
+    ///calculate Total Monthly Cost of employee salaries
+    let totalSalary = 0;
+    for (let i = 0; i < employeeList.length; i++) {
+        totalSalary = totalSalary + ((employeeList[i].annualSalary) / 12);
+        roundedTotalSalary = Number(Math.round(totalSalary + 'e2') + 'e-2');
+    }
+    return roundedTotalSalary; //output is TMC
+}
 
+function totalMonthlyCostSetter() {
+    ///check if Total Monthly Cost of salaries is over $20,000
+    if (salaryCalculator() > 20000) {
+        $('#calculator').addClass("over")  ///add red color if TMC is over 20,000
+    }
 
+    let newestSalaryAmount = `<h3 id="calculator"> Total Monthly Cost: $${salaryCalculator()} </h3>` // Naming dynamic h3 so its easier to read when adding
+    $('#calculator').empty(); // empty the previous TMC h3
+    $('#calculator').append(newestSalaryAmount)  //adding the new TMC as per input fields
+
+}
 
 function deleteEmployee() {
 
-    let clickedRow = $(this).closest("tr"); 
-    let clickedSalary = Number((clickedRow.find("td:eq(4)").text())/12); 
+    let clickedRow = $(this).closest("tr"); //get clicked table row
+    let clickedSalary = Number((clickedRow.find("td:eq(4)").text()) / 12); //getting table cell value of annual salary
 
     console.log(clickedSalary);
-    previousSalaryTotal = salaryCalculator();
+    previousSalaryTotal = salaryCalculator(); //get before-click TMC
     console.log(previousSalaryTotal);
 
-    
-    let currentTotalSalary = previousSalaryTotal - clickedSalary;
-    let roundedCurrentSalary = Number(Math.round(currentTotalSalary+'e2')+'e-2');
+    let currentTotalSalary = previousSalaryTotal - clickedSalary;  //math to get after-click TMC 
+    let roundedCurrentSalary = Number(Math.round(currentTotalSalary + 'e2') + 'e-2');  //rounding function
 
+    let lessEmployeeSalary = `<h3 id="calculator"> Total Monthly Cost: $${roundedCurrentSalary} </h3>`;  ///display expression
+    $('#calculator').empty();  //empty before-click value
+    $('#calculator').append(lessEmployeeSalary);  //set after-click value
 
-    if (employeeList.length === 0) {
-        $('#calculator').empty();
-        $('#calculator').append( `<h3 id="calculator"> Total Monthly Cost: $${0.00} </h3>`);
-    }
-    else{
-        let lessEmployeeSalary = `<h3 id="calculator"> Total Monthly Cost: $${roundedCurrentSalary} </h3>`;
-        $('#calculator').empty();
-        $('#calculator').append(lessEmployeeSalary);
-
+    //turn red if over $20000 in monthly total cost
+    if (roundedCurrentSalary > 20000) {
+        $('#calculator').addClass("over") // turns red
+    } else {
+        $('#calculator').removeClass("over") // removes red, turns back to black
     }
 
-    $(this).parent().remove();
-    clickIndex = employeeList.indexOf($(this));
-    employeeList.splice(clickIndex);
+    $(this).parent().remove(); // getting rid of the entire row @ where button is clicked
+    clickIndex = employeeList.indexOf($(this));  //finding the index value of the clicked employee 
+    employeeList.splice(clickIndex);  //removing the clicked employee from employee list
 
 }
 
-function salaryCalculator() {
-        let totalSalary = 0;
-        for (let i = 0; i < employeeList.length; i++) {
-            totalSalary = totalSalary + ((employeeList[i].annualSalary) / 12);
-            roundedTotalSalary = Number(Math.round(totalSalary+'e2')+'e-2');
-        }
-    return roundedTotalSalary;
-}
-
-
-
-
-
-function salarySetter() {
-    // let totalSalary = 0;
-    
-    
-    // for (let i = 0; i < employeeList.length; i++) {
-    //     totalSalary = totalSalary + ((employeeList[i].annualSalary) / 12);
-    //     roundedTotalSalary = Number(Math.round(totalSalary+'e2')+'e-2');
-    // }
-    
-    console.log(salaryCalculator());
-    result = salaryCalculator();
-
-    let newestSalaryAmount = `<h3 id="calculator"> Total Monthly Cost: $${result} </h3>`
-    $('#calculator').empty();
-    $('#calculator').append(newestSalaryAmount)
-
-}
-
-
-
-
-
-
-
-
-
-    // clickedId =  $(this).parent().val();
-    // for (let i = 0; i < employeeList.length; i++) {
-    //     totalSalary += Number(employeeList[i].annualSalary / 12);
-    // }
-    // for (let i = 0; i < employeeList.length; i++) {
-    //     updatedSalary = totalSalary - Number(employeeList[this].annualSalary);
-    // }

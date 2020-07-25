@@ -71,3 +71,8 @@ tr:nth-child(even) {
     padding: 20px;
 
 }
+
+.over {
+    color: red;
+    background-color: white;
+}
