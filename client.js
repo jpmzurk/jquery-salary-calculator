@@ -8,6 +8,7 @@ function readyNow() {
 function addClickHandlers() {
     $('#inputForm').submit(addEmployeeToArray)
     $('#appendTarget').on('click', '.employeeInfo', deleteEmployee)
+    $('#appendTarget').on('click', '.employeeInfo', totalMonthlyCostSetter)
 }
 
 let employeeList = [];
@@ -31,7 +32,7 @@ function addEmployeeToArray() {
 
         // appendItemToDom();
         appendEmployeeToTable(); // add employee object to table fields
-        totalMonthlyCostSetter(employeeList); //
+        totalMonthlyCostSetter(); //
         console.log(employee);
         console.log(employeeList);
 
@@ -65,45 +66,44 @@ function appendEmployeeToTable() {
 }
 
 
-
-function salaryCalculator(someArray) {
-    let totalSalary = 0;
-    for (let i = 0; i < someArray.length; i++) {	
-        totalSalary = totalSalary + Number((someArray[i].annualSalary) / 12);
-    }
-    roundedTotalSalary = totalSalary.toFixed(2);    
-    return roundedTotalSalary;
-}
-
-
-
-
 function deleteEmployee() {
-    //delete employee from table and employeeList array
-    let clickedRow = $(this).closest("tr"); //get clicked table row
-    let clickedSalary = (clickedRow.find("td:eq(4)").text() / 12); //getting table cell value of annual salary
-    console.log(clickedSalary);
-
-    let total = 0;
+     let total = 0;
     for (let i = 0; i < employeeList.length; i++) {	
         total = total + Number(((employeeList[i].annualSalary)) / 12);
     }
     roundedSalary = total.toFixed(2);
-    console.log(Number(roundedSalary)); //get before-click TMC
-    
 
-    let currentTotalSalary = Number(roundedSalary) - clickedSalary;  //math to get after-click TMC 
+    console.log(Number(roundedSalary)); //get before-click TMC
+    //delete employee from table and employeeList array
+    let tempArray = [];
+    let clickedRow = $(this).siblings(".employeeInfo");    //get clicked table row
+    $.each(clickedRow, function() {               // Visits every single <td> element
+        tempArray.push($(this).text());        // pushes the text within the <td> to array
+    });
+    let clickedSalary = (Number(tempArray[4]) / 12);
+
+    
+    // console.log(clickedRow);
+    // let clickedRow = $(this).parent("tr"); 
+    // let clickedSalary = (clickedRow.find("td:eq(4)").text() / 12); //getting table cell value of annual salary
+    // console.log(clickedSalary);
+
+
+    let currentTotalSalary = roundedSalary - clickedSalary;  //math to get after-click TMC 
     let roundedCurrentSalary = (Math.round(Number(currentTotalSalary) + 'e2') + 'e-2');  //rounding function
 
-  
+    
     let lessEmployeeSalary = `<h3 class="text-center" id="calculator"> Total Monthly Cost: $${Number(roundedCurrentSalary)} </h3>`;  ///display expression
     $('#calculator').empty();  //empty before-click value
     $('#calculator').append(lessEmployeeSalary);  //set after-click value
 
+    tempArray = [];
 
     $(this).parent().remove(); // getting rid of the entire row @ where button is clicked
     clickIndex = employeeList.indexOf($(this));  //finding the index value of the clicked employee 
     employeeList.splice(clickIndex);  //removing the clicked employee from employee list
+    
+    console.log(tempArray);
     
 
     //turn red if over $20000 in monthly total cost
@@ -114,17 +114,28 @@ function deleteEmployee() {
     }
 }
 
+ 
 function totalMonthlyCostSetter() {
+    let totalSalary = 0;
+    for (let i = 0; i < employeeList.length; i++) {	
+        totalSalary = totalSalary + Number((employeeList[i].annualSalary) / 12);
+    }
+    roundedTotalSalary = totalSalary.toFixed(2);  
     ///check if Total Monthly Cost of salaries is over $20,000
-    if (salaryCalculator(employeeList) > 20000) {
+    if (roundedTotalSalary > 20000) {
         $('#calculator').addClass("over")  ///add red color if TMC is over 20,000
     }
-
-    let newestSalaryAmount = `<h3 class="text-center"id="calculator"> Total Monthly Cost: $${salaryCalculator(employeeList)} </h3>` // Naming dynamic h3 so its easier to read when adding
-    $('#calculator').empty(); // empty the previous TMC h3
-    $('#calculator').append(newestSalaryAmount)  //adding the new TMC as per input fields
+    else {
+        $('#calculator').removeClass("over") // removes red, turns back to black
+        let newestSalaryAmount = `<h3 class="text-center"id="calculator"> Total Monthly Cost: $${roundedTotalSalary} </h3>` // Naming dynamic h3 so its easier to read when adding
+        $('#calculator').empty(); // empty the previous TMC h3
+        $('#calculator').append(newestSalaryAmount) 
+    }
 
 }
+
+
+
 
 
 
