@@ -19,14 +19,15 @@
             <h1>Salary Calculator</h1>
         </header>
         <main>
-            <section id= "form">
-                <input id="firstNameInput" type="text" placeholder="First Name">
-                <input id="lastNameInput" type="text" placeholder="Last Name">
-                <input id="employeeIdInput" type="number" placeholder="ID">
-                <input id="jobTitleInput" type="text" placeholder="Title">
-                <input id="annualSalaryInput" type="number" placeholder="Annual Salary">
-                <button id="submitButton"> Submit </button> 
-
+            <section>
+                <form class="form-inline" id="inputForm">
+                <input class="form-control" id="firstNameInput" type="text" placeholder="First Name">
+                <input class="form-control" id="lastNameInput" type="text" placeholder="Last Name">
+                <input class="form-control" id="employeeIdInput" type="number" placeholder="ID">
+                <input class="form-control" id="jobTitleInput" type="text" placeholder="Title">
+                <input class="form-control" id="annualSalaryInput" type="number" placeholder="Annual Salary">
+                <input type="submit" class="btn btn btn-outline-secondary" id="submitButton" > </input> 
+            </form>
             </section>
             <section id="tableSection" >
                 <table>
@@ -34,10 +35,10 @@
                         <tr class="tableHeader">
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Annual Salary</th>
-                            <th id="buttonSpace">             </th>
+                            <th class = "text-center">ID</th>
+                            <th class = "text-center">Title</th>
+                            <th class = "text-center">Annual Salary</th>
+                            <th id="buttonSpace"> blank$$$$ </th>
                         </tr>
                     </thead>
                     
@@ -46,8 +47,14 @@
                     </tbody>
                 </table>
             </section>  
-            <section id="appendCalculator">
-                    <h3 id="calculator">Total Monthly Cost: $0.00</h3>
+            <section>
+               <table>
+                    <thead> 
+                        <th id="tableRowSpace"> <button type="button" class="btn" id="hidden" > Delete </button></th>    
+                    </thead>
+               </table>
+                    <h3 class= "text-center" id="calculator">Total Monthly Cost: $0.00</h3>
+                          
             </section> 
         </main>
         
