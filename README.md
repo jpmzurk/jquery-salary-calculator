@@ -10,5 +10,5 @@ This application receives user input and displays on that input on the DOM. More
 
 The problem addressed here was determining a total monthly payroll cost. This application gives employers a quick snapshot of their total monthly payroll cost and warns if that cost breaches $20,000 a month.  
 
-Screenshots are here : ![](Screenshot1.png) ![](Screenshot2.png)
+Screenshots are here : ![Screenshot1](Screenshot1.png) ![Scrennshot2](Screenshot2.png)
 
