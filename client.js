@@ -22,10 +22,21 @@ function addEmployeeToArray() {
         jobTitle: $('#jobTitleInput').val(),
         annualSalary: $('#annualSalaryInput').val(),
     }
+    
+
+    function loopIds() {
+        for (let i = 0; i < employeeList.length; i++) {
+           if (employee.id === employeeList[i].id) {
+           } return true; 
+        }
+    }
 
     if (employee.firstName === '' || employee.secondName === '' || employee.id === '' || employee.jobTitle === '' || employee.id === '' || employee.annualSalary === '') {
         alert('please enter all fields');
-    }
+    } 
+    else if ( loopIds() === true ) {
+        alert('That employee already exists');
+    } 
     else {
         employeeList.push(employee); ///PUSHES EMPLOYEE INTO EMPLOYEE LIST ARRAY
         ////ADD EMPLOYEE TO DOM//
@@ -41,7 +52,7 @@ function addEmployeeToArray() {
 
             employeeToAppend = `<tr>${firstNamedAppend} ${secondNamedAppend} ${idAppend} ${jobTitleAppend} ${annualSalaryAppend} ${deleteButton}</tr>`;
             $('#employeeParent').append(employeeToAppend);
-    }
+        }
 
         /// ADDING TO TOTAL MONTHLY COST
         let totalSalary = 0;
