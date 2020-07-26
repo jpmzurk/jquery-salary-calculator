@@ -7,7 +7,7 @@ function readyNow() {
 
 function addClickHandlers() {
     $('#inputForm').submit(addEmployeeToArray)
-    $('#employeeParent').on('click', '.employeeInfo', deleteEmployeeSalary)
+    $('#employeeParent').on('click', '.deleteBtn', deleteEmployee)
 }
 
 let employeeList = [];
@@ -37,7 +37,7 @@ function addEmployeeToArray() {
             let idAppend = `<td class="employeeInfo text-center" > ${worker.id}</td> `;
             let jobTitleAppend = `<td class="employeeInfo text-center" > ${worker.jobTitle}</td> `;
             let annualSalaryAppend = `<td class="employeeInfo text-center"><span class="salary">${worker.annualSalary} </span> </td> `;
-            let deleteButton = `<td class="employeeInfo text-center"> <button type="button" class="btn btn-outline-secondary delete" > Delete </button> </td>`;
+            let deleteButton = `<td class="employeeInfo text-center"> <button type="button" class="btn btn-outline-secondary deleteBtn" > Delete </button> </td>`;
 
             employeeToAppend = `<tr>${firstNamedAppend} ${secondNamedAppend} ${idAppend} ${jobTitleAppend} ${annualSalaryAppend} ${deleteButton}</tr>`;
             $('#employeeParent').append(employeeToAppend);
@@ -68,7 +68,7 @@ function addEmployeeToArray() {
         console.log(employeeList);
 
     }
-    ///clear values of inputs 
+    ///clear Input values
     $('#firstNameInput').val('');
     $('#lastNameInput').val('');
     $('#employeeIdInput').val('');
@@ -79,7 +79,7 @@ function addEmployeeToArray() {
 }
 
 
-function deleteEmployeeSalary() {
+function deleteEmployee() {
 
     /// GETTING SALARY OF CLICKED EMPLOYEE
     let tempArray = [];
@@ -93,9 +93,12 @@ function deleteEmployeeSalary() {
     console.log('this is the clicked id ' + clickedId); 
     console.log('this is the clicked salary being removed ' + clickedSalary.toFixed(2));
     
-      
+    if ($('.deleteBtn').length > 0) {
+        $(this).closest('tr').remove(); 
     
-    $(this).parent("tr").empty(); // getting rid of the entire row @ where button is clicked
+    }
+    
+    // getting rid of the entire row @ where button is clicked
     employeeList.splice(employeeList.indexOf($(this).val()), 1);
     console.log(employeeList);
 
@@ -116,42 +119,4 @@ function deleteEmployeeSalary() {
     } else {
         $('.calculator').removeClass("over") // removes red, turns back to black
     }
-
-    
-
 }
-
-
-// let updatedTotalSalary = roundedSalary - clickedSalary.toFixed(2);  //math to get after-click TMC 
-// let roundedUpdatedSalary = (Math.round(Number(currentTotalSalary) + 'e2') + 'e-2');  //rounding function
-
-// console.log('monthly cost less removed employee' + updatedTotalSalary);
-
-
-
-
-      // removed clicked employee from table and employeeList array
-    // clickIndex = employeeList.indexOf($(this));  //finding the index value of the clicked employee 
-    // console.log('this is the index of employeeList ' + clickIndex);
-
-
-/// another means to get CLICKED ROW OF TABLE/////D
-    
-
-
-
-
-
-
-     // for (let worker of employeeList) {
-    //     if (clickedId === worker.id) {
-    //         employeeList.splice(worker., 1);
-    //     }
-        
-    // }
-    // clickedRow = $(this).parent("tr"); 
-    // clickedSalary = (clickedRow.find("td:eq(4)").text() / 12); 
-
-
-    // employeeList.splice(clickIndex, 1);  //removing the clicked employee from employee list
-    // console.log(employeeList);
