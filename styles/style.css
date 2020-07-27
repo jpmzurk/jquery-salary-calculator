@@ -10,6 +10,7 @@ header {
 #tableSection{
     text-align: center;
     float: center;
+    width: 85%;
 }
 
 h1  {
@@ -24,16 +25,16 @@ h1  {
 
 
 .full_width {
-    display:table;
-    width:100%;
-    table-layout:fixed;
-    border-spacing:0;
-}
+     display:table; 
+     width:100%;
+     table-layout:fixed; 
+     /* border-spacing:0; */
+} 
 
-body {
+/* body {
     padding:0;
     margin:0;
-}
+} */
 
 table {
     font-family: arial, sans-serif;
@@ -45,24 +46,21 @@ table {
 
 .tableHeader {
     background-color: rgb(179, 177, 177);
-}
-
-
-tbody {
     justify-content: center;
 }
+
 
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
-    padding: 5px;
+    padding: 0px;
     font-weight: normal;
     font-size: 20px;
 }
 
-tr:nth-child(even) {
+/* tr:nth-child(even) {
     background-color: #dddddd;
-}
+} */
 
 #deleteFormat  {
     justify-content: center;
@@ -85,17 +83,18 @@ tr:nth-child(even) {
     color: rgb(179, 177, 177);
     background-color: rgb(179, 177, 177);
     justify-content: center;
+    /* width: 13%; */
 }
 
-
+/* 
 #tableRowSpace {
     padding: 8px;
-    width: 80%;
+    width: 60%;
     color: white;
     background-color: white;
     justify-content: center;
     border: none;
-}
+} */
 
 #hidden {
   visibility: hidden;
