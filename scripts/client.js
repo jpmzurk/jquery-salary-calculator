@@ -11,7 +11,7 @@ function readyNow() {
 }
 
 function addClickHandlers() {
-    $('#inputForm').submit(loopIds)
+  
     $('#inputForm').submit(addEmployeeToArray)
     $('#employeeParent').on('click', '.deleteBtn', deleteEmployee)
 }
@@ -19,13 +19,11 @@ function addClickHandlers() {
 let employeeList = [];
 
 
-
-    // let clickedRow = $(this).siblings(".employeeInfo"); 
-    
-    // for (let i = 0; i < employeeList.length; i++) {
-    //   if ( employeeList[i].id === idInput){
-    //   }
-    // }     return true;
+function loopIds() {
+    for (let i = 0; i < employeeList.length; i++) {
+       if (employee.id === employeeList[i].id) {
+        return true;   } 
+    }
 }
 
 function addEmployeeToArray() {
@@ -33,19 +31,6 @@ function addEmployeeToArray() {
     console.log(employeeList);
 
     // loopIds();
-
-    function comparingIds() {
-        console.log('in loopIDs');
-        let clickedId = $(this).children('#employeeIdInput').val() ;
-        console.log(clickedId);
-        for (const workerPerson of employeeList) {
-            if (workerPerson.id === clickedId) {
-                return true;
-            }
-        }
-        
-    }
-    
     ///CONNECT THE INPUT FIELDS TO A NEW EMPLOYEE OBJECT 
  
         const employee = {
@@ -59,10 +44,10 @@ function addEmployeeToArray() {
 
         if (employee.firstName === '' || employee.secondName === '' || employee.id === '' || employee.jobTitle === '' || employee.id === '' || employee.annualSalary === '') {
             alert('please enter all fields');
-        }  else if (comparingIds()=== true ){
-            alert('you have that employee entered already');
-            return true;
-         }
+        }  else if ( loopIds() === true ) {
+            alert('That employee already exists') ;
+           
+        } 
         else {
             employeeList.push(employee); ///PUSHES EMPLOYEE INTO EMPLOYEE LIST ARRAY
 
@@ -132,11 +117,13 @@ function deleteEmployee() {
     console.log('this is the clicked id ' + clickedId); 
     console.log('this is the clicked salary being removed ' + clickedSalary.toFixed(2));
     
+
+        // getting rid of the entire row @ where button is clicked
     if ($('.deleteBtn').length > 0) {
         $(this).closest('tr').remove(); 
     }
     
-    // getting rid of the entire row @ where button is clicked
+
     employeeList.splice(employeeList.indexOf($(this).val()), 1);
     console.log(employeeList);
 
@@ -144,7 +131,8 @@ function deleteEmployee() {
     for (let i = 0; i < employeeList.length; i++) {	
         totalMonthlySalary = totalMonthlySalary + Number(((employeeList[i].annualSalary)) / 12);
     }
-        roundedTotalSalary = (Math.round(Number(totalMonthlySalary) + 'e2') + 'e-2'); 
+    
+    roundedTotalSalary = (Math.round(Number(totalMonthlySalary) + 'e2') + 'e-2'); 
 
     $('.calculator').empty();  //empty before-click value
     $('.calculator').append(`<h3 class="text-center calculator"> Total Monthly Cost: $${Number(roundedTotalSalary)} </h3>`);  //set after-click value
